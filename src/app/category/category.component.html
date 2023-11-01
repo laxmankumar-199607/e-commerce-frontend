@@ -1,0 +1,136 @@
+<div class="container text-center">
+  <div class="row">
+    <div
+      class="col-3 mb-1"
+      *ngFor="let item of this.categoryService.activeItemList"
+    >
+      <div class="card">
+        <img
+          [src]="item?.imageUrl"
+          style="border-radius: 50%; text-align: center; margin: auto"
+          alt="..."
+          width="150"
+          height="150"
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{ item?.itemName }}</h5>
+
+          <!-- <div class="p-inputgroup">
+            <input type="text" pInputText />
+            <p-dropdown [options]="cities" optionLabel="name"></p-dropdown>
+          </div> -->
+          <div class="p-inputgroup">
+            <input type="text" pInputText />
+            <p-dropdown [options]="cities" optionLabel="name"></p-dropdown>
+        </div>
+
+          <p class="card-text">
+            <small></small>
+          </p>
+        </div>
+
+        <div class="card-body">
+          <button type="button" class="btn btn-light" (click)="addtoCart(item)">
+            Add to cart
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-grid d-md-flex justify-content-md-end">
+    <!-- Button trigger modal -->
+    <button
+      type="button"
+      class="btn btn-primary"
+      style="
+        --bs-btn-padding-y: 0.25rem;
+        --bs-btn-padding-x: 0.5rem;
+        --bs-btn-font-size: 0.75rem;
+      "
+      data-bs-toggle="modal"
+      data-bs-target="#staticBackdrop"
+    >
+      Add New Item
+    </button>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade modal-lg"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Add New Items</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>SlNo.</th>
+              <th>Name</th>
+              <th>Image</th>
+              <th>Availability</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let item of this.categoryService.itemList; let i = index"
+            >
+              <th>{{ i + 1 }}</th>
+              <td>{{ item?.itemName }}</td>
+              <td>
+                <img
+                  [src]="item?.imageUrl"
+                  style="border-radius: 50%; text-align: center; margin: auto"
+                  alt="..."
+                  width="50"
+                  height="50"
+                />
+              </td>
+
+              <td>
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  [(ngModel)]="item.isActive"
+                  value="item.isActive"
+                  (change)="isActiveItem(item, $event)"
+                />
+                {{
+                  item?.isActive ? "Item is available" : "Item is not available"
+                }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- <div class="text-center" *ngIf="true">
+        <div class="spinner-border" role="status">
+        </div>
+        <div class="sr-only">Loading...</div>
+      </div> -->
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary">Understood</button>
+      </div>
+    </div> -->
+    </div>
+  </div>
+</div>
